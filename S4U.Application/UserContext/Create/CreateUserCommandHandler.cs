@@ -22,14 +22,13 @@ namespace S4U.Application.UserContext.Create
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var _id = await _context.Set<User>()
-                                    .Where(u => u.Email.Equals(request.Email))
-                                    .Select(u => u.Id)
-                                    .FirstOrDefaultAsync();
+            var _user = await _context.Set<User>()
+                                      .Where(u => u.Email.Equals(request.Email))
+                                      .FirstOrDefaultAsync();
 
-            if (_id == null)
+            if (_user == null)
             {
-                _id = Guid.NewGuid();
+                var _id = Guid.NewGuid();
 
                 var _role = await _context.Set<Role>()
                                           .Where(r => r.Name.Equals(string.IsNullOrEmpty(request.Role) ? "Client" : request.Role))
@@ -45,9 +44,11 @@ namespace S4U.Application.UserContext.Create
                 }, cancellationToken);
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                return _id;
             }
 
-            return _id;
+            return _user.Id;
         }
     }
 }
