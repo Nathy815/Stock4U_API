@@ -6,3 +6,4 @@ C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.As
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.AssemblyInfo.cs
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.dll
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.pdb
+C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.csprojAssemblyReference.cache

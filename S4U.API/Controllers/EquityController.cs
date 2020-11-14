@@ -30,5 +30,12 @@ namespace S4U.API.Controllers
         {
             return await _mediator.Send(new ListEquitiesQuery(userID));
         }
+
+        [HttpGet("search/{term}")]
+        [Authorize]
+        public async Task<List<SearchEquityVM>> Search([FromRoute] string term)
+        {
+            return await _mediator.Send(new SearchEquityQuery(term));
+        }
     }
 }

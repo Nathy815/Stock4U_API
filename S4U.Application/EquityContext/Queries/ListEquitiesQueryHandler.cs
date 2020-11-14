@@ -15,10 +15,12 @@ namespace S4U.Application.EquityContext.Queries
     public class ListEquitiesQueryHandler : IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>
     {
         private readonly SqlContext _context;
+        private readonly IMediator _mediator;
 
-        public ListEquitiesQueryHandler(SqlContext context)
+        public ListEquitiesQueryHandler(SqlContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
         public async Task<List<GetEquityVM>> Handle(ListEquitiesQuery request, CancellationToken cancellationToken)
@@ -34,7 +36,10 @@ namespace S4U.Application.EquityContext.Queries
 
             var _list = new List<GetEquityVM>();
             foreach (var _equity in _equities)
-                _list.Add(new GetEquityVM(_equity.Equity));
+            {
+                var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
+                _list.Add(new GetEquityVM(_equity.Equity, _yahoo));
+            }
 
             return _list;
         }

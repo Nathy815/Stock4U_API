@@ -11,13 +11,15 @@ namespace S4U.Domain.ViewModels
         public string Ticker { get; set; }
         public string Name { get; set; }
         public double Value { get; set; }
+        public bool? Higher { get; set; }
 
-        public GetEquityVM(Equity equity)
+        public GetEquityVM(Equity equity, Tuple<double, bool?> yahoo)
         {
             Id = equity.Id;
             Ticker = equity.Ticker;
             Name = equity.Ticker;
-            Value = 10.34;
+            Value = yahoo.Item1;
+            Higher = yahoo.Item2;
         }
     }
 }

@@ -24,7 +24,8 @@ namespace S4U.API.Configurations
             #region EquityContext
 
             services.AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
-                    .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>();
+                    .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>()
+                    .AddTransient<IRequestHandler<SearchEquityQuery, List<SearchEquityVM>>, SearchEquityQueryHandler>();
 
             services.AddTransient<IValidator<CreateEquityCommand>, CreateEquityCommandValidator>();
 
