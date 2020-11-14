@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace S4U.Application.UserContext.Create
+namespace S4U.Application.UserContext.Commands.Create
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {

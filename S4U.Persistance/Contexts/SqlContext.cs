@@ -19,6 +19,9 @@ namespace S4U.Persistance.Contexts
         public DbSet<Plan> Plans { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Signature> Signatures { get; set; }
+        public DbSet<Equity> Equities { get; set; }
+        public DbSet<UserEquity> UserEquities { get; set; }
+        //public DbSet<CompareEquity> CompareEquities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +31,9 @@ namespace S4U.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new AddressMap());
             modelBuilder.ApplyConfiguration(new PlanMap());
+            modelBuilder.ApplyConfiguration(new EquityMap());
+            //modelBuilder.ApplyConfiguration(new CompareEquityMap());
+            modelBuilder.ApplyConfiguration(new UserEquityMap());
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))

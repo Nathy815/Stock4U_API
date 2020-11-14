@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "b3bed0e7dde0ae5e7a153eddee857a3c36cf1238"
+    "signature": "b4e8640eb215ff4cc66bf06019c07b81c2747462"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,7 +10,9 @@
         "dependencies": {
           "FluentValidation": "9.3.0",
           "MediatR": "9.0.0",
-          "S4U.Persistance": "1.0.0"
+          "Newtonsoft.Json": "12.0.3",
+          "S4U.Persistance": "1.0.0",
+          "Microsoft.AspNetCore.Http.Features": "2.1.1.0"
         },
         "runtime": {
           "S4U.Application.dll": {}
@@ -219,6 +221,14 @@
           "runtime/win/lib/_._": {
             "rid": "win",
             "assetType": "runtime"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
           }
         }
       },
@@ -531,6 +541,14 @@
         "runtime": {
           "S4U.Persistance.dll": {}
         }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.1.1.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Http.Features.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
       }
     }
   },
@@ -672,6 +690,13 @@
       "sha512": "sha512-+FWlwd//+Tt56316p00hVePBCouXyEzT86Jb3+AuRotTND0IYn0OO3obs1gnQEs/txEnt+rF2JBGLItTG+Be6A==",
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",
@@ -932,6 +957,11 @@
     },
     "S4U.Persistance/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Http.Features/2.1.1.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

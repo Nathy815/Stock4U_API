@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace S4U.Application.UserContext.Create
+namespace S4U.Application.UserContext.Commands.Create
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {

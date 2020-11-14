@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace S4U.Domain.Entities
 {
@@ -10,6 +11,8 @@ namespace S4U.Domain.Entities
         
         // Optional
         public string Gender { get; set; }
+        public string Image { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         // Relational
         public Guid RoleID { get; set; }
@@ -20,5 +23,7 @@ namespace S4U.Domain.Entities
 
         public Guid? AddressID { get; set; }
         public virtual Address Address { get; set; }
+
+        public virtual ICollection<UserEquity> UsersEquities { get; set; }
     }
 }

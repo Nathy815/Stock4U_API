@@ -22,11 +22,14 @@ namespace S4U.Persistance.Mappings
                    .IsRequired();
 
             builder.Property(e => e.Gender)
-                   .HasMaxLength(9);
+                   .HasMaxLength(11);
+
+            builder.Property(e => e.Image)
+                   .HasMaxLength(256);
 
             builder.HasOne(e => e.Address)
-                   .WithOne(e => e.User)
-                   .HasForeignKey<Address>(e => e.Id);
+                   .WithMany(e => e.Users)
+                   .HasForeignKey(e => e.AddressID);
 
             builder.HasOne(e => e.Role)
                    .WithMany(e => e.Users)
@@ -37,7 +40,8 @@ namespace S4U.Persistance.Mappings
                    .WithOne(e => e.User)
                    .HasForeignKey<Signature>(e => e.Id);
 
-            builder.HasIndex(e => new { e.Id, e.Email });
+            builder.HasIndex(e => new { e.Id, e.Email })
+                   .IsUnique();
         }
     }
 }

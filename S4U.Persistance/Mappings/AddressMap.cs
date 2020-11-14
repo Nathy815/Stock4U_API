@@ -28,6 +28,9 @@ namespace S4U.Persistance.Mappings
             builder.Property(e => e.Compliment)
                    .HasMaxLength(150);
 
+            builder.Property(e => e.Neighborhood)
+                   .HasMaxLength(100);
+
             builder.Property(e => e.City)
                    .HasMaxLength(100)
                    .IsRequired();
@@ -36,10 +39,8 @@ namespace S4U.Persistance.Mappings
                    .HasMaxLength(2)
                    .IsRequired();
 
-            builder.Property(e => e.Country)
-                   .HasMaxLength(100);
-
-            builder.HasIndex(e => new { e.Id, e.ZipCode });
+            builder.HasIndex(e => new { e.Id, e.ZipCode })
+                   .IsUnique();
 
         }
     }

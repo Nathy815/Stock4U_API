@@ -1,7 +1,12 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using S4U.Application.UserContext.Create;
+using S4U.Application.EquityContext.Commands.Create;
+using S4U.Application.EquityContext.Queries;
+using S4U.Application.UserContext.Commands.Create;
+using S4U.Application.UserContext.Commands.Update;
+using S4U.Application.UserContext.Queries;
+using S4U.Domain.ViewModels;
 using S4U.Persistance.Contexts;
 using System;
 using System.Collections.Generic;
@@ -16,12 +21,26 @@ namespace S4U.API.Configurations
         {
             services.AddScoped<SqlContext>();
 
-            #region UserContext
-            
-            services.AddTransient<IRequestHandler<CreateUserCommand, Guid>, CreateUserCommandHandler>();
+            #region EquityContext
 
-            services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
-        
+            services.AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
+                    .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>();
+
+            services.AddTransient<IValidator<CreateEquityCommand>, CreateEquityCommandValidator>();
+
+            #endregion
+
+            #region UserContext
+
+            services.AddTransient<IRequestHandler<CreateUserCommand, Guid>, CreateUserCommandHandler>()
+                    .AddTransient<IRequestHandler<FindByEmailQuery, Guid>, FindByEmailQueryHandler>()
+                    .AddTransient<IRequestHandler<GetAddressQuery, GetAddressVM>, GetAddressQueryHandler>()
+                    .AddTransient<IRequestHandler<GetUserQuery, GetUserVM>, GetUserQueryHandler>()
+                    .AddTransient<IRequestHandler<UpdateUserCommand, bool>, UpdateUserCommandHandler>();
+
+            services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>()
+                    .AddTransient<IValidator<UpdateUserCommand>, UpdateUserCommandValidator>();
+
             #endregion
         }
     }

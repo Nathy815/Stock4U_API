@@ -21,7 +21,8 @@ namespace S4U.Persistance.Migrations
 
             modelBuilder.Entity("S4U.Domain.Entities.Address", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -29,9 +30,6 @@ namespace S4U.Persistance.Migrations
 
                     b.Property<string>("Compliment")
                         .HasMaxLength(150);
-
-                    b.Property<string>("Country")
-                        .HasMaxLength(100);
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -42,6 +40,9 @@ namespace S4U.Persistance.Migrations
                         .HasMaxLength(200);
 
                     b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<string>("Neighborhood")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -57,9 +58,36 @@ namespace S4U.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id", "ZipCode");
+                    b.HasIndex("Id", "ZipCode")
+                        .IsUnique();
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("S4U.Domain.Entities.Equity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150);
+
+                    b.Property<string>("Ticker")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id", "Ticker");
+
+                    b.ToTable("Equities");
                 });
 
             modelBuilder.Entity("S4U.Domain.Entities.Payment", b =>
@@ -160,6 +188,8 @@ namespace S4U.Persistance.Migrations
 
                     b.Property<Guid?>("AddressID");
 
+                    b.Property<DateTime?>("BirthDate");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<bool>("Deleted");
@@ -169,7 +199,10 @@ namespace S4U.Persistance.Migrations
                         .HasMaxLength(200);
 
                     b.Property<string>("Gender")
-                        .HasMaxLength(9);
+                        .HasMaxLength(11);
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(256);
 
                     b.Property<DateTime>("ModifiedDate");
 
@@ -185,19 +218,29 @@ namespace S4U.Persistance.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressID");
+
                     b.HasIndex("RoleID");
 
-                    b.HasIndex("Id", "Email");
+                    b.HasIndex("Id", "Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("S4U.Domain.Entities.Address", b =>
+            modelBuilder.Entity("S4U.Domain.Entities.UserEquity", b =>
                 {
-                    b.HasOne("S4U.Domain.Entities.User", "User")
-                        .WithOne("Address")
-                        .HasForeignKey("S4U.Domain.Entities.Address", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<Guid>("UserID");
+
+                    b.Property<Guid>("EquityID");
+
+                    b.HasKey("UserID", "EquityID");
+
+                    b.HasIndex("EquityID");
+
+                    b.HasIndex("UserID", "EquityID");
+
+                    b.ToTable("UserEquities");
                 });
 
             modelBuilder.Entity("S4U.Domain.Entities.Payment", b =>
@@ -226,9 +269,26 @@ namespace S4U.Persistance.Migrations
 
             modelBuilder.Entity("S4U.Domain.Entities.User", b =>
                 {
+                    b.HasOne("S4U.Domain.Entities.Address", "Address")
+                        .WithMany("Users")
+                        .HasForeignKey("AddressID");
+
                     b.HasOne("S4U.Domain.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("S4U.Domain.Entities.UserEquity", b =>
+                {
+                    b.HasOne("S4U.Domain.Entities.Equity", "Equity")
+                        .WithMany("UsersEquities")
+                        .HasForeignKey("EquityID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("S4U.Domain.Entities.User", "User")
+                        .WithMany("UsersEquities")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
