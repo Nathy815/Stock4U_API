@@ -19,21 +19,18 @@ namespace S4U.API.Controllers
         public UserController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("create")]
-        [Authorize]
         public async Task<Guid> Create([FromBody] CreateUserCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpGet("{userID}")]
-        [Authorize]
         public async Task<GetUserVM> Get([FromRoute] Guid userID)
         {
             return await _mediator.Send(new GetUserQuery(userID));
         }
 
         [HttpGet("address/{zipCode}")]
-        [Authorize]
         public async Task<GetAddressVM> GetAddress([FromRoute] string zipCode)
         {
             return await _mediator.Send(new GetAddressQuery(zipCode));
@@ -46,7 +43,6 @@ namespace S4U.API.Controllers
         }
 
         [HttpPatch("update"), DisableRequestSizeLimit]
-        [Authorize]
         public async Task<bool> Update([FromForm] UpdateUserCommand request)
         {
             return await _mediator.Send(request);

@@ -18,21 +18,18 @@ namespace S4U.API.Controllers
         public EquityController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("create")]
-        [Authorize]
         public async Task<Guid> Create([FromBody] CreateEquityCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpGet("list/{userID}")]
-        [Authorize]
         public async Task<List<GetEquityVM>> List([FromRoute] Guid userID)
         {
             return await _mediator.Send(new ListEquitiesQuery(userID));
         }
 
         [HttpGet("search/{term}")]
-        [Authorize]
         public async Task<List<SearchEquityVM>> Search([FromRoute] string term)
         {
             return await _mediator.Send(new SearchEquityQuery(term));
