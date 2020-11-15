@@ -25,17 +25,16 @@ namespace S4U.Application.EquityContext.Queries
 
         public async Task<List<GetEquityVM>> Handle(ListEquitiesQuery request, CancellationToken cancellationToken)
         {
-            var _equities = await _context.Set<User>()
-                                          .Include(u => u.UsersEquities)
-                                            .ThenInclude(u => u.Equity)
-                                          .Where(u => u.Id == request.UserID)
-                                          .Select(u => u.UsersEquities)
-                                          .FirstOrDefaultAsync();
+            var _user = await _context.Set<User>()
+                                      .Include(u => u.UsersEquities)
+                                        .ThenInclude(u => u.Equity)
+                                      .Where(u => u.Id == request.UserID)
+                                      .FirstOrDefaultAsync();
 
-            if (_equities == null || _equities.Count == 0) return null;
+            if (_user.UsersEquities == null || _user.UsersEquities.Count == 0) return null;
 
             var _list = new List<GetEquityVM>();
-            foreach (var _equity in _equities)
+            foreach (var _equity in _user.UsersEquities)
             {
                 var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
                 _list.Add(new GetEquityVM(_equity.Equity, _yahoo));

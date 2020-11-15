@@ -20,7 +20,7 @@ namespace S4U.Application.EquityContext.Queries
             var _json = _response.Content.ReadAsStringAsync().Result;
 
             var _data = JsonConvert.DeserializeObject<YahooSearchVM>(_json);
-            var _result = _data.quotes.Where(r => r.isYahooFinance).ToList();
+            var _result = _data.quotes.Where(r => r.isYahooFinance && !string.IsNullOrEmpty(r.longname)).ToList();
 
             var _lista = new List<SearchEquityVM>();
             foreach (var _item in _result)
