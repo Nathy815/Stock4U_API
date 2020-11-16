@@ -5,7 +5,7 @@ using System.Text;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class GetEquityValueQuery : IRequest<Tuple<double, bool?>>
+    public class GetEquityValueQuery : IRequest<Tuple<double, double>>
     {
         public string Ticker { get; set; }
 

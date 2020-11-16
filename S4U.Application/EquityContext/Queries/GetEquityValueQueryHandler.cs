@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class GetEquityValueQueryHandler : IRequestHandler<GetEquityValueQuery, Tuple<double, bool?>>
+    public class GetEquityValueQueryHandler : IRequestHandler<GetEquityValueQuery, Tuple<double, double>>
     {
-        public async Task<Tuple<double, bool?>> Handle(GetEquityValueQuery request, CancellationToken cancellationToken)
+        public async Task<Tuple<double, double>> Handle(GetEquityValueQuery request, CancellationToken cancellationToken)
         {
             var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&range=1d&interval=1d", request.Ticker);
 
@@ -24,10 +24,8 @@ namespace S4U.Application.EquityContext.Queries
 
             var _valor = _return.chart.result[0].meta.regularMarketPrice;
             var _fechamento = _return.chart.result[0].meta.chartPreviousClose;
-            bool? _aumento = null;
-            _aumento = _valor > _fechamento ? true : false;
 
-            return new Tuple<double, bool?>(_valor, _aumento);
+            return new Tuple<double, double>(_valor, _fechamento);
         }
     }
 }

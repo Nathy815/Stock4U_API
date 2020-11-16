@@ -11,15 +11,20 @@ namespace S4U.Domain.ViewModels
         public string Ticker { get; set; }
         public string Name { get; set; }
         public double Value { get; set; }
+        public double Variation { get; set; }
+        public double Percentage { get; set; }
         public bool? Higher { get; set; }
 
-        public GetEquityVM(Equity equity, Tuple<double, bool?> yahoo)
+        public GetEquityVM(Equity equity, Tuple<double, double> yahoo)
         {
             Id = equity.Id;
             Ticker = equity.Ticker;
             Name = equity.Ticker;
             Value = yahoo.Item1;
-            Higher = yahoo.Item2;
+            Higher = yahoo.Item1 > yahoo.Item2 ? true : false;
+            if (yahoo.Item1 == yahoo.Item2) Higher = null;
+            Variation = Math.Round(yahoo.Item1 - yahoo.Item2, 2);
+            Percentage = Math.Round(Variation * 100 / Value, 2);
         }
     }
 }
