@@ -9,7 +9,7 @@ namespace S4U.Application.EquityContext.Queries
     public class ListEquitiesQuery : IRequest<List<GetEquityVM>>
     {
         public Guid UserID { get; set; }
-
+        
         public ListEquitiesQuery(Guid userID)
         {
             UserID = userID;

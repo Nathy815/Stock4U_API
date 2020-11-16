@@ -3,6 +3,10 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Queries;
+using S4U.Application.NoteContext.Commands.Create;
+using S4U.Application.NoteContext.Commands.Delete;
+using S4U.Application.NoteContext.Commands.Update;
+using S4U.Application.NoteContext.Queries;
 using S4U.Application.UserContext.Commands.Create;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
@@ -29,6 +33,19 @@ namespace S4U.API.Configurations
                     .AddTransient<IRequestHandler<SearchEquityQuery, List<SearchEquityVM>>, SearchEquityQueryHandler>();
 
             services.AddTransient<IValidator<CreateEquityCommand>, CreateEquityCommandValidator>();
+
+            #endregion
+
+            #region NoteContext
+
+            services.AddTransient<IRequestHandler<CreateNoteCommand, Guid>, CreateNoteCommandHandler>()
+                    .AddTransient<IRequestHandler<DeleteNoteCommand, bool>, DeleteNoteCommandHandler>()
+                    .AddTransient<IRequestHandler<GetNoteQuery, GetNoteVM>, GetNoteQueryHandler>()
+                    .AddTransient<IRequestHandler<ListNotesQuery, List<GetNoteVM>>, ListNotesQueryHandler>()
+                    .AddTransient<IRequestHandler<UpdateNoteCommand, bool>, UpdateNoteCommandHandler>();
+
+            services.AddTransient<IValidator<CreateNoteCommand>, CreateNoteCommandValidator>()
+                    .AddTransient<IValidator<UpdateNoteCommand>, UpdateNoteCommandValidator>();
 
             #endregion
 
