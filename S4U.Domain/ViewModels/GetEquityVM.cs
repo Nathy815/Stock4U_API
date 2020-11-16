@@ -19,7 +19,7 @@ namespace S4U.Domain.ViewModels
         {
             Id = equity.Id;
             Ticker = equity.Ticker;
-            Name = equity.Ticker;
+            Name = equity.Name;
             Value = yahoo.Item1;
             Higher = yahoo.Item1 > yahoo.Item2 ? true : false;
             if (yahoo.Item1 == yahoo.Item2) Higher = null;
