@@ -23,6 +23,12 @@ namespace S4U.API.Controllers
             return await _mediator.Send(request);
         }
 
+        [HttpPost("get")]
+        public async Task<GetEquityVM> Get([FromBody] GetEquityQuery request)
+        {
+            return await _mediator.Send(request);
+        }
+
         [HttpGet("list/{userID}")]
         public async Task<List<GetEquityVM>> List([FromRoute] Guid userID)
         {
