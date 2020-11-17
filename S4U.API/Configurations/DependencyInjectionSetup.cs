@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Queries;
 using S4U.Application.NoteContext.Commands.Create;
@@ -27,14 +28,16 @@ namespace S4U.API.Configurations
 
             #region EquityContext
 
-            services.AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
+            services.AddTransient<IRequestHandler<CompareEquityCommand, bool>, CompareEquityCommandHandler>()
+                    .AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
                     .AddTransient<IRequestHandler<GetEquityChartQuery, GetEquityChartVM>, GetEquityChartQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityQuery, GetEquityVM>, GetEquityQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityValueQuery, Tuple<double, double>>, GetEquityValueQueryHandler>()
                     .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>()
                     .AddTransient<IRequestHandler<SearchEquityQuery, List<SearchEquityVM>>, SearchEquityQueryHandler>();
 
-            services.AddTransient<IValidator<CreateEquityCommand>, CreateEquityCommandValidator>();
+            services.AddTransient<IValidator<CompareEquityCommand>, CompareEquityCommandValidator>()
+                    .AddTransient<IValidator<CreateEquityCommand>, CreateEquityCommandValidator>();
 
             #endregion
 
