@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace S4U.Domain.Entities
 {
     public class CompareEquity
     {
-        /*
-        // Relational
-        public Guid PrincipalID { get; set; }
-        public virtual UserEquity Principal { get; set; }
+        [Key]
+        public Guid UserID { get; set; }
+        public Guid EquityID { get; set; }
+        public virtual UserEquity UserEquity { get; set; }
 
+        [Key]
         public Guid CompareID { get; set; }
-        public virtual Equity Compare { get; set; }*/
+        public virtual Equity Equity { get; set; }
     }
 }

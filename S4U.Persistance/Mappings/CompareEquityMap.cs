@@ -11,21 +11,21 @@ namespace S4U.Persistance.Mappings
     {
         public void Configure(EntityTypeBuilder<CompareEquity> builder)
         {
-            /*builder.HasKey(e => new { e.PrincipalID, e.CompareID });
+            builder.HasKey(e => new { e.UserID, e.EquityID, e.CompareID });
 
-            builder.HasOne(e => e.Principal)
-                   .WithMany(e => e.PrincipalEquities)
-                   .HasForeignKey(e => e.PrincipalID)
-                   .OnDelete(DeleteBehavior.Restrict)
-                   .IsRequired();
-
-            builder.HasOne(e => e.Compare)
-                   .WithMany(e => e.EquitiesToCompare)
+            builder.HasOne(e => e.Equity)
+                   .WithMany(e => e.EquitiesThatCompare)
                    .HasForeignKey(e => e.CompareID)
                    .OnDelete(DeleteBehavior.Restrict)
                    .IsRequired();
 
-            builder.HasIndex(e => new { e.PrincipalID, e.CompareID });*/
+            builder.HasOne(e => e.UserEquity)
+                   .WithMany(e => e.EquitiesToCompare)
+                   .HasForeignKey(e => new { e.UserID, e.EquityID })
+                   .OnDelete(DeleteBehavior.Restrict)
+                   .IsRequired();
+
+            builder.HasIndex(e => new { e.UserID, e.EquityID, e.CompareID });
         }
     }
 }

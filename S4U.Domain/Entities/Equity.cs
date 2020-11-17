@@ -11,7 +11,6 @@ namespace S4U.Domain.Entities
 
         // Relational
         public virtual ICollection<UserEquity> UsersEquities { get; set; }
-        /*public virtual ICollection<CompareEquity> PrincipalEquities { get; set; }
-        public virtual ICollection<CompareEquity> EquitiesToCompare { get; set; }*/
+        public virtual ICollection<CompareEquity> EquitiesThatCompare { get; set; }
     }
 }
