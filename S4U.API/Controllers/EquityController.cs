@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Queries;
 using S4U.Domain.ViewModels;
@@ -16,6 +17,12 @@ namespace S4U.API.Controllers
     public class EquityController : BaseController
     {
         public EquityController(IMediator mediator) : base(mediator) { }
+
+        [HttpPost("compare")]
+        public async Task<bool> Compare([FromBody] CompareEquityCommand request)
+        {
+            return await _mediator.Send(request);
+        }
 
         [HttpPost("create")]
         public async Task<Guid> Create([FromBody] CreateEquityCommand request)
