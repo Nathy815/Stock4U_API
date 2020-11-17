@@ -15,21 +15,32 @@ namespace S4U.Application.EquityContext.Commands.Compare
     public class CompareEquityCommandHandler : IRequestHandler<CompareEquityCommand, bool>
     {
         private readonly SqlContext _context;
-        private readonly IMediator _mediator;
 
-        public CompareEquityCommandHandler(SqlContext context, IMediator mediator)
+        public CompareEquityCommandHandler(SqlContext context)
         {
             _context = context;
-            _mediator = mediator;
         }
 
         public async Task<bool> Handle(CompareEquityCommand request, CancellationToken cancellationToken)
         {
-            var _equityID = await _mediator.Send(new CreateEquityCommand {
-                Ticker = request.Ticker,
-                Name = request.Name,
-                UserID = request.UserID
-            });
+            var _equityID = Guid.NewGuid();
+            var _equity = await _context.Set<Equity>()
+                                        .Where(e => e.Ticker.Equals(request.Ticker))
+                                        .FirstOrDefaultAsync();
+
+            if (_equity == null)
+            {
+                await _context.Equities.AddAsync(new Equity
+                {
+                    Id = _equityID,
+                    Ticker = request.Ticker,
+                    Name = request.Name
+                }, cancellationToken);
+
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+            else
+                _equityID = _equity.Id;
 
             var _comparation = await _context.Set<CompareEquity>()
                                              .Where(e => e.CompareID == _equityID &&
