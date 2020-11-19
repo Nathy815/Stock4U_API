@@ -14,7 +14,7 @@ namespace S4U.Application.UserContext.Queries
     {
         public async Task<GetAddressVM> Handle(GetAddressQuery request, CancellationToken cancellationToken)
         {
-            var api = string.Format("viacep.com.br/ws/{0}/json/", request.ZipCode.Replace("-", ""));
+            var api = string.Format("http://viacep.com.br/ws/{0}/json/", request.ZipCode.Replace("-", ""));
 
             var _client = new HttpClient();
             var _response = await _client.GetAsync(api);
