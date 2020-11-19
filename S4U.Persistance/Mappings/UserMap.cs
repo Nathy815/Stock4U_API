@@ -21,15 +21,22 @@ namespace S4U.Persistance.Mappings
                    .HasMaxLength(200)
                    .IsRequired();
 
+            builder.Property(e => e.Address)
+                   .HasMaxLength(256)
+                   .IsRequired();
+
+            builder.Property(e => e.Number)
+                   .HasMaxLength(6)
+                   .IsRequired();
+
+            builder.Property(e => e.Compliment)
+                   .HasMaxLength(30);
+
             builder.Property(e => e.Gender)
                    .HasMaxLength(11);
 
             builder.Property(e => e.Image)
                    .HasMaxLength(256);
-
-            builder.HasOne(e => e.Address)
-                   .WithMany(e => e.Users)
-                   .HasForeignKey(e => e.AddressID);
 
             builder.HasOne(e => e.Role)
                    .WithMany(e => e.Users)

@@ -7,6 +7,9 @@ namespace S4U.Domain.Entities
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Address { get; set; }
+        public string Number { get; set; }
+        public string Compliment { get; set; }
         public string PushToken { get; set; }
         
         // Optional
@@ -20,9 +23,6 @@ namespace S4U.Domain.Entities
 
         public Guid? SignatureID { get; set; }
         public virtual Signature Signature { get; set; }
-
-        public Guid? AddressID { get; set; }
-        public virtual Address Address { get; set; }
 
         public virtual ICollection<UserEquity> UsersEquities { get; set; }
     }

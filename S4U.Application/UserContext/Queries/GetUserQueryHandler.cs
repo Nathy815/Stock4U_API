@@ -24,7 +24,6 @@ namespace S4U.Application.UserContext.Queries
         public async Task<GetUserVM> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var _user = await _context.Set<User>()
-                                      .Include(u => u.Address)
                                       .Where(u => u.Id == request.UserID)
                                       .FirstOrDefaultAsync();
 

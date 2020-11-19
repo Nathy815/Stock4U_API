@@ -18,52 +18,20 @@ namespace S4U.Application.UserContext.Commands.Update
                     .When(e => !string.IsNullOrEmpty(e.Gender))
                     .WithMessage("Por favor, informe um sexo válido.");
 
-            RuleFor(e => e.ZipCode)
-                .MaximumLength(8)
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("O CEP não pode ser maior que 8 caracteres.");
-
-            RuleFor(e => e.Local)
-                .NotEmpty()
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("Por favor, preencha todos os campos de endereço.")
-                .MaximumLength(200)
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("O logradouro não pode ser maior que 200 caracteres.");
+            RuleFor(e => e.Address)
+                .MaximumLength(256)
+                    .When(e => !string.IsNullOrEmpty(e.Address))
+                    .WithMessage("O endereço não pode ser maior que 256 caracteres.");
 
             RuleFor(e => e.Number)
-                .MaximumLength(20)
+                .MaximumLength(6)
                     .When(e => !string.IsNullOrEmpty(e.Number))
-                    .WithMessage("O número não pode ser maior que 20 caracteres.");
+                    .WithMessage("O número não pode ser maior que 6 caracteres.");
 
             RuleFor(e => e.Compliment)
-                .MaximumLength(150)
+                .MaximumLength(30)
                     .When(e => !string.IsNullOrEmpty(e.Compliment))
-                    .WithMessage("O complemento não pode ser maior que 150 caracteres.");
-
-            RuleFor(e => e.Neighborhood)
-                .NotEmpty()
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("Por favor, preencha todos os campos de endereço.")
-                .MaximumLength(100)
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("O bairro não pode ser maior que 100 caracteres.");
-
-            RuleFor(e => e.City)
-                .NotEmpty()
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("Por favor, preencha todos os campos de endereço.")
-                .MaximumLength(100)
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("A cidade não pode ser maior que 100 caracteres.");
-
-            RuleFor(e => e.State)
-                .NotEmpty()
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("Por favor, preencha todos os campos de endereço.")
-                .MaximumLength(2)
-                    .When(e => !string.IsNullOrEmpty(e.ZipCode))
-                    .WithMessage("O Estado não pode ser maior que 2 caracteres.");
+                    .WithMessage("O endereço não pode ser maior que 30 caracteres.");
         }
     }
 }

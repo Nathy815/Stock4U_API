@@ -30,7 +30,6 @@ namespace S4U.Persistance.Contexts
 
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
-            modelBuilder.ApplyConfiguration(new AddressMap());
             modelBuilder.ApplyConfiguration(new PlanMap());
             modelBuilder.ApplyConfiguration(new EquityMap());
             modelBuilder.ApplyConfiguration(new CompareEquityMap());

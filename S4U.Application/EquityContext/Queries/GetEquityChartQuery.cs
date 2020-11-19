@@ -6,13 +6,9 @@ using System.Text;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class GetEquityChartQuery : IRequest<GetEquityChartVM>
+    public class GetEquityChartQuery : IRequest<List<ListEquityChartsVM>>
     {
-        public Guid Id { get; set; }
-
-        public GetEquityChartQuery(Guid id)
-        {
-            Id = id;
-        }
+        public List<Guid> Ids { get; set; }
+        public string Filter { get; set; }
     }
 }

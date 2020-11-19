@@ -30,27 +30,9 @@ namespace S4U.Application.UserContext.Commands.Update
             _user.Gender = request.Gender;
             _user.Image = null;
             _user.BirthDate = request.BirthDate;
-
-            if (!string.IsNullOrEmpty(request.ZipCode))
-            {
-                var _address = await _context.Set<Address>()
-                                             .Where(a => a.ZipCode.Equals(request.ZipCode))
-                                             .FirstOrDefaultAsync();
-
-                if (_address != null) _user.AddressID = _address.Id;
-                else
-                    _user.Address = new Address
-                    {
-                        Id = Guid.NewGuid(),
-                        ZipCode = request.ZipCode,
-                        Local = request.Local,
-                        Number = request.Number,
-                        Compliment = request.Compliment,
-                        Neighborhood = request.Neighborhood,
-                        City = request.City,
-                        State = request.State
-                    };
-            }
+            _user.Address = request.Address;
+            _user.Number = request.Number;
+            _user.Compliment = request.Compliment;
 
             _context.Users.Update(_user);
 

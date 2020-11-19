@@ -13,13 +13,9 @@ namespace S4U.Domain.ViewModels
         public string Gender { get; set; }
         public string Image { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string ZipCode { get; set; }
-        public string Local { get; set; }
+        public string Address { get; set; }
         public string Number { get; set; }
         public string Compliment { get; set; }
-        public string Neighborhood { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
 
         public GetUserVM(User user)
         {
@@ -29,16 +25,9 @@ namespace S4U.Domain.ViewModels
             Gender = user.Gender;
             Image = user.Image;
             BirthDate = user.BirthDate;
-            if (user.AddressID.HasValue)
-            {
-                ZipCode = user.Address.ZipCode;
-                Local = user.Address.Local;
-                Number = user.Address.Number;
-                Compliment = user.Address.Compliment;
-                Neighborhood = user.Address.Neighborhood;
-                City = user.Address.City;
-                State = user.Address.State;
-            }
+            Address = user.Address;
+            Number = user.Number;
+            Compliment = user.Compliment;
         }
     }
 }
