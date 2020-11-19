@@ -23,7 +23,6 @@ namespace S4U.Application.UserContext.Commands.Update
         public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var _user = await _context.Set<User>()
-                                      .Include(u => u.Address)
                                       .Where(u => u.Id == request.Id)
                                       .FirstOrDefaultAsync();
 
