@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using S4U.Persistance.Contexts;
 
 namespace S4U.Persistance.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20201119232223_Notification")]
+    partial class Notification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,6 +229,7 @@ namespace S4U.Persistance.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(256);
 
                     b.Property<DateTime?>("BirthDate");
@@ -255,6 +258,7 @@ namespace S4U.Persistance.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasMaxLength(6);
 
                     b.Property<string>("PushToken");

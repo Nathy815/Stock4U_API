@@ -25,5 +25,6 @@ namespace S4U.Domain.Entities
         public virtual Signature Signature { get; set; }
 
         public virtual ICollection<UserEquity> UsersEquities { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

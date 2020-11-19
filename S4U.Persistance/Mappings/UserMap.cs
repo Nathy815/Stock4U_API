@@ -22,12 +22,10 @@ namespace S4U.Persistance.Mappings
                    .IsRequired();
 
             builder.Property(e => e.Address)
-                   .HasMaxLength(256)
-                   .IsRequired();
+                   .HasMaxLength(256);
 
             builder.Property(e => e.Number)
-                   .HasMaxLength(6)
-                   .IsRequired();
+                   .HasMaxLength(6);
 
             builder.Property(e => e.Compliment)
                    .HasMaxLength(30);
