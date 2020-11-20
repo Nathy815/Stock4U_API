@@ -22,7 +22,7 @@ namespace S4U.Persistance.Mappings
             builder.HasOne(e => e.UserEquity)
                    .WithMany(e => e.EquitiesToCompare)
                    .HasForeignKey(e => new { e.UserID, e.EquityID })
-                   .OnDelete(DeleteBehavior.Restrict)
+                   .OnDelete(DeleteBehavior.Cascade)
                    .IsRequired();
 
             builder.HasIndex(e => new { e.UserID, e.EquityID, e.CompareID });
