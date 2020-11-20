@@ -29,6 +29,7 @@ namespace S4U.Application.NoteContext.Commands.Create
                 Title = request.Title,
                 Comments = request.Comments,
                 Attach = null,
+                Alert = request.Alert,
                 UserID = request.UserID,
                 EquityID = request.EquityID
             }, cancellationToken);

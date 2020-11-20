@@ -39,7 +39,7 @@ namespace S4U.Application.EquityContext.Queries
 
             foreach (var _equity in _userEquity.EquitiesToCompare)
             {
-                _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
+                _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
                 _result.Compare.Add(new GetEquityVM(_equity.Equity, _yahoo));
             }
 
