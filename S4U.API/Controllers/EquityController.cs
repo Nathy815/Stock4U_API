@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Commands.Delete;
+using S4U.Application.EquityContext.Commands.Remove;
 using S4U.Application.EquityContext.Queries;
 using S4U.Domain.ViewModels;
 using System;
@@ -53,6 +54,12 @@ namespace S4U.API.Controllers
         public async Task<List<GetEquityVM>> List([FromRoute] Guid userID)
         {
             return await _mediator.Send(new ListEquitiesQuery(userID));
+        }
+
+        [HttpPatch("remove")]
+        public async Task<bool> Remove([FromBody] RemoveCompareCommand request)
+        {
+            return await _mediator.Send(request);
         }
 
         [HttpGet("search/{term}")]

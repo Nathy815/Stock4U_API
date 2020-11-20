@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Commands.Delete;
+using S4U.Application.EquityContext.Commands.Remove;
 using S4U.Application.EquityContext.Queries;
 using S4U.Application.NoteContext.Commands.Create;
 using S4U.Application.NoteContext.Commands.Delete;
@@ -37,6 +38,7 @@ namespace S4U.API.Configurations
                     .AddTransient<IRequestHandler<GetEquityQuery, GetEquityVM>, GetEquityQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityValueQuery, Tuple<double, double>>, GetEquityValueQueryHandler>()
                     .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>()
+                    .AddTransient<IRequestHandler<RemoveCompareCommand, bool>, RemoveCompareCommandHandler>()
                     .AddTransient<IRequestHandler<SearchEquityQuery, List<SearchEquityVM>>, SearchEquityQueryHandler>();
 
             services.AddTransient<IValidator<CompareEquityCommand>, CompareEquityCommandValidator>()
