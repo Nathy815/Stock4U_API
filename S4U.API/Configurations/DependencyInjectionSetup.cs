@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
+using S4U.Application.EquityContext.Commands.Delete;
 using S4U.Application.EquityContext.Queries;
 using S4U.Application.NoteContext.Commands.Create;
 using S4U.Application.NoteContext.Commands.Delete;
@@ -30,6 +31,7 @@ namespace S4U.API.Configurations
 
             services.AddTransient<IRequestHandler<CompareEquityCommand, bool>, CompareEquityCommandHandler>()
                     .AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
+                    .AddTransient<IRequestHandler<DeleteUserEquityCommand, bool>, DeleteUserEquityCommandHandler>()
                     .AddTransient<IRequestHandler<GenerateChartQuery, List<GetEquityChartVM>>, GenerateChartQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityChartQuery, List<ListEquityChartsVM>>, GetEquityChartQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityQuery, GetEquityVM>, GetEquityQueryHandler>()

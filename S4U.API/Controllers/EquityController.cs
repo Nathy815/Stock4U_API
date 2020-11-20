@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
+using S4U.Application.EquityContext.Commands.Delete;
 using S4U.Application.EquityContext.Queries;
 using S4U.Domain.ViewModels;
 using System;
@@ -32,6 +33,12 @@ namespace S4U.API.Controllers
 
         [HttpPost("create")]
         public async Task<Guid> Create([FromBody] CreateEquityCommand request)
+        {
+            return await _mediator.Send(request);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<bool> Delete([FromBody] DeleteUserEquityCommand request)
         {
             return await _mediator.Send(request);
         }
