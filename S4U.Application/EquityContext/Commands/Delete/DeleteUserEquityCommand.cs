@@ -9,5 +9,11 @@ namespace S4U.Application.EquityContext.Commands.Delete
     {
         public Guid UserID { get; set; }
         public Guid EquityID { get; set; }
+
+        public DeleteUserEquityCommand(Guid userID, Guid equityID)
+        {
+            UserID = userID;
+            EquityID = equityID;
+        }
     }
 }

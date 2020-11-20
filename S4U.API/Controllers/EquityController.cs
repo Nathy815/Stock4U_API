@@ -37,10 +37,10 @@ namespace S4U.API.Controllers
             return await _mediator.Send(request);
         }
 
-        [HttpDelete("delete")]
-        public async Task<bool> Delete([FromBody] DeleteUserEquityCommand request)
+        [HttpDelete("delete/{equityID}/{userID}")]
+        public async Task<bool> Delete([FromRoute] Guid equityID, Guid userID)
         {
-            return await _mediator.Send(request);
+            return await _mediator.Send(new DeleteUserEquityCommand(userID, equityID));
         }
 
         [HttpPost("get")]
