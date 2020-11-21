@@ -28,7 +28,7 @@ namespace S4U.Domain.ViewModels
             if (yahoo.Item1 == yahoo.Item2) Higher = null;
             Variation = Math.Round(yahoo.Item1 - yahoo.Item2, 2);
             Percentage = Math.Round(Variation * 100 / Value, 2);
-            Notes = userEquity.Notes == null ? 0 : userEquity.Notes.Where(n => !n.Deleted).ToList().Count;
+            Notes = userEquity.Notes == null ? 0 : userEquity.Notes.Where(n => !n.Deleted).ToList().Count();
             Compare = new List<GetEquityVM>();
         }
 
