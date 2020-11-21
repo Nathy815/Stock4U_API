@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Firebase.Storage;
+using MediatR;
 using S4U.Domain.Entities;
 using S4U.Persistance.Contexts;
 using System;
@@ -28,8 +29,9 @@ namespace S4U.Application.NoteContext.Commands.Create
                 Id = _id,
                 Title = request.Title,
                 Comments = request.Comments,
-                Attach = null,
                 Alert = request.Alert,
+                Attach = request.Attach == null ? null :
+                         await new FirebaseStorage("stock4u-f97f2.appspot.com").Child("notes").Child(_id.ToString()).PutAsync(request.Attach.OpenReadStream()),
                 UserID = request.UserID,
                 EquityID = request.EquityID
             }, cancellationToken);

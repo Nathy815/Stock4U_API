@@ -47,5 +47,12 @@ namespace S4U.API.Controllers
         {
             return await _mediator.Send(request);
         }
+
+        [HttpGet("teste")]
+        [Authorize]
+        public Task<bool> Teste()
+        {
+            return Task.FromResult(true);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Firebase.Storage;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using S4U.Domain.Entities;
 using S4U.Persistance.Contexts;
@@ -28,7 +29,8 @@ namespace S4U.Application.NoteContext.Commands.Update
 
             _note.Title = request.Title;
             _note.Comments = request.Comments;
-            _note.Attach = null;
+            _note.Attach = request.Attach == null ? null :
+                           await new FirebaseStorage("stock4u-f97f2.appspot.com").Child("notes").Child(_note.Id.ToString()).PutAsync(request.Attach.OpenReadStream());
             _note.Alert = request.Alert;
 
             _context.Notes.Update(_note);

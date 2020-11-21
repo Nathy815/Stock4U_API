@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Firebase.Storage;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using S4U.Domain.Entities;
 using S4U.Persistance.Contexts;
@@ -27,7 +28,8 @@ namespace S4U.Application.UserContext.Commands.Update
                                       .FirstOrDefaultAsync();
 
             _user.Gender = request.Gender;
-            _user.Image = null;
+            _user.Image = request.Image == null ? null :
+                          await new FirebaseStorage("stock4u-f97f2.appspot.com").Child("users").Child(_user.Id.ToString()).PutAsync(request.Image.OpenReadStream());
             _user.BirthDate = request.BirthDate;
             _user.Address = request.Address;
             _user.Number = request.Number;
