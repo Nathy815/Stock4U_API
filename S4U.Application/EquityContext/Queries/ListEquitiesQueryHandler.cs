@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using S4U.Domain.Entities;
 using S4U.Domain.ViewModels;
 using S4U.Persistance.Contexts;
@@ -16,11 +17,13 @@ namespace S4U.Application.EquityContext.Queries
     {
         private readonly SqlContext _context;
         private readonly IMediator _mediator;
+        private readonly IMemoryCache _cache;
 
-        public ListEquitiesQueryHandler(SqlContext context, IMediator mediator)
+        public ListEquitiesQueryHandler(SqlContext context, IMediator mediator, IMemoryCache cache)
         {
             _context = context;
             _mediator = mediator;
+            _cache = cache;
         }
 
         public async Task<List<GetEquityVM>> Handle(ListEquitiesQuery request, CancellationToken cancellationToken)
@@ -36,8 +39,13 @@ namespace S4U.Application.EquityContext.Queries
             var _list = new List<GetEquityVM>();
             foreach (var _equity in _user.UsersEquities)
             {
-                var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
-                _list.Add(new GetEquityVM(_equity.Equity, _yahoo));
+                if (!_cache.TryGetValue(_equity.EquityID.ToString(), out GetEquityVM model))
+                {
+                    var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
+                    _list.Add(new GetEquityVM(_equity.Equity, _yahoo));
+                }
+                else
+                    _list.Add(model);
             }
 
             return _list;

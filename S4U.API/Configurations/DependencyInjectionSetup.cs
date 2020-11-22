@@ -10,6 +10,7 @@ using S4U.Application.NoteContext.Commands.Create;
 using S4U.Application.NoteContext.Commands.Delete;
 using S4U.Application.NoteContext.Commands.Update;
 using S4U.Application.NoteContext.Queries;
+using S4U.Application.Services.Interface;
 using S4U.Application.UserContext.Commands.Create;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
@@ -27,6 +28,8 @@ namespace S4U.API.Configurations
         public static void RegisterHandlers(this IServiceCollection services)
         {
             services.AddScoped<SqlContext>();
+
+            services.AddTransient<IHangfire, Application.Services.Hangfire>();
 
             #region EquityContext
 

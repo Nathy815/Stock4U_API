@@ -18,6 +18,11 @@ namespace S4U.Domain.ViewModels
         public int Notes { get; set; }
         public List<GetEquityVM> Compare { get; set; }
 
+        public GetEquityVM()
+        {
+            Compare = new List<GetEquityVM>();
+        }
+
         public GetEquityVM(UserEquity userEquity, Tuple<double, double> yahoo)
         {
             Id = userEquity.Equity.Id;

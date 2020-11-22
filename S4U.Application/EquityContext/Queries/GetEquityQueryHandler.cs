@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using S4U.Domain.Entities;
 using S4U.Domain.ViewModels;
 using S4U.Persistance.Contexts;
@@ -16,11 +17,13 @@ namespace S4U.Application.EquityContext.Queries
     {
         private readonly SqlContext _context;
         private readonly IMediator _mediator;
+        private readonly IMemoryCache _cache;
 
-        public GetEquityQueryHandler(SqlContext context, IMediator mediator)
+        public GetEquityQueryHandler(SqlContext context, IMediator mediator, IMemoryCache cache)
         {
             _context = context;
             _mediator = mediator;
+            _cache = cache;
         }
 
         public async Task<GetEquityVM> Handle(GetEquityQuery request, CancellationToken cancellationToken)
@@ -34,13 +37,25 @@ namespace S4U.Application.EquityContext.Queries
                                                         e.UserID == request.UserID)
                                             .FirstOrDefaultAsync();
 
-            var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
-            var _result = new GetEquityVM(_userEquity, _yahoo);
+            var _result = new GetEquityVM();
+            if (!_cache.TryGetValue<GetEquityVM>(_userEquity.EquityID.ToString(), out GetEquityVM principal))
+            {
+                var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
+                _result = new GetEquityVM(_userEquity, _yahoo);
+            }
+            else
+                _result = principal;
+                
 
             foreach (var _equity in _userEquity.EquitiesToCompare)
             {
-                _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
-                _result.Compare.Add(new GetEquityVM(_equity.Equity, _yahoo));
+                if (!_cache.TryGetValue<GetEquityVM>(_equity.EquityID.ToString(), out GetEquityVM model))
+                {
+                    var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
+                    _result.Compare.Add(new GetEquityVM(_equity.Equity, _yahoo));
+                }
+                else
+                    _result.Compare.Add(model);
             }
 
             return _result;

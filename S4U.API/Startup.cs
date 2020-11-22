@@ -36,6 +36,10 @@ namespace S4U.API
 
             services.AddSwaggerSetup();
 
+            services.AddSignalRSetup();
+
+            services.AddHangfireSetup(Configuration);
+
             services.RegisterHandlers();
 
             services.AddMediatR(typeof(Startup));
@@ -63,6 +67,8 @@ namespace S4U.API
             app.UseSwaggerDocs();
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseSignalRSetup();
+            app.UseHangfire(Configuration);
             app.UseMvc();
         }
     }
