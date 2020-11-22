@@ -32,7 +32,7 @@ namespace S4U.API.Configurations
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(_configuration.GetConnectionString("SqlServerConnection"), _options));
+                .UseSqlServerStorage(_configuration.GetConnectionString("SqlConnection"), _options));
 
             services.AddHangfireServer();
 
@@ -41,7 +41,7 @@ namespace S4U.API.Configurations
             var provider = services.BuildServiceProvider();
             var hangfireJobs = provider.GetService<IHangfire>();
 
-            JobStorage.Current = new SqlServerStorage(_configuration.GetConnectionString("SqlServerConnection"), _options);
+            JobStorage.Current = new SqlServerStorage(_configuration.GetConnectionString("SqlConnection"), _options);
 
             RecurringJob.AddOrUpdate(() => hangfireJobs.GetRealTimeData(), Cron.Minutely);
 
