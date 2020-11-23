@@ -17,9 +17,9 @@ namespace S4U.Application.Hubs
             return base.OnConnectedAsync();
         }
 
-        public async Task SendMessage(List<GetEquityVM> message)
+        public async Task SendMessage(string name, List<GetEquityVM> message)
         {
-            string name = Context.User.Identity.Name;
+            
             await Clients.Groups(name).SendAsync("ListEquities", message);
         }
     }

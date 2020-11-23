@@ -38,11 +38,11 @@ namespace S4U.API
 
             services.AddSignalRSetup();
 
-            services.AddHangfireSetup(Configuration);
-
             services.RegisterHandlers();
 
             services.AddMediatR(typeof(Startup));
+
+            services.AddHangfireSetup(Configuration);
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

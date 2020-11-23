@@ -1,11 +1,13 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using S4U.Application.EquityContext.Commands.Compare;
 using S4U.Application.EquityContext.Commands.Create;
 using S4U.Application.EquityContext.Commands.Delete;
 using S4U.Application.EquityContext.Commands.Remove;
 using S4U.Application.EquityContext.Queries;
+using S4U.Application.Hubs;
 using S4U.Application.NoteContext.Commands.Create;
 using S4U.Application.NoteContext.Commands.Delete;
 using S4U.Application.NoteContext.Commands.Update;

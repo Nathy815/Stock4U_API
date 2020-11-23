@@ -21,9 +21,9 @@ namespace S4U.Application.Services
         private readonly SqlContext _context;
         private readonly IMediator _mediator;
         private readonly IMemoryCache _cache;
-        private readonly EquityHub _hub;
+        private readonly IHubContext<EquityHub> _hub;
 
-        public Hangfire(SqlContext context, IMediator mediator, IMemoryCache cache, EquityHub hub)
+        public Hangfire(SqlContext context, IMediator mediator, IMemoryCache cache, IHubContext<EquityHub> hub)
         {
             _context = context;
             _mediator = mediator;
@@ -56,7 +56,8 @@ namespace S4U.Application.Services
                                        .ToListAsync();
 
             foreach (var _user in _users)
-                await _hub.SendMessage(await _mediator.Send(new ListEquitiesQuery(_user.Id)));
+                await _hub.Clients.Client(_user.Id.ToString()).SendAsync("ListEquities",
+                    await _mediator.Send(new ListEquitiesQuery(_user.Id)));
         }
     }
 }
