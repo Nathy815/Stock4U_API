@@ -89,7 +89,7 @@ namespace S4U.Application.Utils
             {
                 var _return = new Dictionary<string, YahooVM>();
 
-                var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?region=US&lang=en-US&includePrePost=false&interval={2}&range={3}&corsDomain=finance.yahoo.com&.tsrc=finance",
+                var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?region=US&lang=en-US&includePrePost=false&interval={1}&range={2}&corsDomain=finance.yahoo.com&.tsrc=finance",
                                         prefix, interval, range);
 
                 var _client = new HttpClient();
