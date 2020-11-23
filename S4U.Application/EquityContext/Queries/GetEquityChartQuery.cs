@@ -8,7 +8,8 @@ namespace S4U.Application.EquityContext.Queries
 {
     public class GetEquityChartQuery : IRequest<List<ListEquityChartsVM>>
     {
-        public List<Guid> Ids { get; set; }
+        public Guid EquityID { get; set; }
+        public Guid UserID { get; set; }
         public string Filter { get; set; }
     }
 }

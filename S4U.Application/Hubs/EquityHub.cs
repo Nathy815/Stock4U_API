@@ -9,18 +9,21 @@ namespace S4U.Application.Hubs
 {
     public class EquityHub : Hub
     {
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            string name = Context.User.Identity.Name;
-            Groups.AddToGroupAsync(Context.ConnectionId, name);
-
-            return base.OnConnectedAsync();
+            await Groups.AddToGroupAsync(Context.ConnectionId, "HubUsers");
+            await base.OnConnectedAsync();
         }
 
-        public async Task SendMessage(string name, List<GetEquityVM> message)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
-            
-            await Clients.Groups(name).SendAsync("ListEquities", message);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, "HubUsers");
+            await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task SendMessage(List<GetEquityVM> message)
+        {
+            await Clients.Groups("HubUser").SendAsync("ListEquities", message);
         }
     }
 }
