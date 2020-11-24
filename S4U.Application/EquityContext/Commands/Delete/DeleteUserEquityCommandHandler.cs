@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using S4U.Domain.Entities;
+using S4U.Domain.ViewModels;
 using S4U.Persistance.Contexts;
 using System;
 using System.Collections.Generic;
@@ -14,10 +16,12 @@ namespace S4U.Application.EquityContext.Commands.Delete
     public class DeleteUserEquityCommandHandler : IRequestHandler<DeleteUserEquityCommand, bool>
     {
         private readonly SqlContext _context;
+        private readonly IMemoryCache _cache;
 
-        public DeleteUserEquityCommandHandler(SqlContext context)
+        public DeleteUserEquityCommandHandler(SqlContext context, IMemoryCache cache)
         {
             _context = context;
+            _cache = cache;
         }
 
         public async Task<bool> Handle(DeleteUserEquityCommand request, CancellationToken cancellationToken)
@@ -30,6 +34,9 @@ namespace S4U.Application.EquityContext.Commands.Delete
             _context.UserEquities.Remove(_userEquity);
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            if (_cache.TryGetValue(request.EquityID.ToString(), out GetEquityVM get))
+                _cache.Remove(get);
 
             return true;
         }
