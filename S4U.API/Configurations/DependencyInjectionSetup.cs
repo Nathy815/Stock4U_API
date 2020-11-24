@@ -39,7 +39,7 @@ namespace S4U.API.Configurations
                     .AddTransient<IRequestHandler<CreateEquityCommand, Guid>, CreateEquityCommandHandler>()
                     .AddTransient<IRequestHandler<DeleteUserEquityCommand, bool>, DeleteUserEquityCommandHandler>()
                     .AddTransient<IRequestHandler<GenerateChartQuery, List<GetEquityChartVM>>, GenerateChartQueryHandler>()
-                    .AddTransient<IRequestHandler<GetEquityChartQuery, List<ListEquityChartsVM>>, GetEquityChartQueryHandler>()
+                    .AddTransient<IRequestHandler<GetEquityChartQuery, List<List<GetEquityChartVM>>>, GetEquityChartQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityQuery, GetEquityVM>, GetEquityQueryHandler>()
                     .AddTransient<IRequestHandler<GetEquityValueQuery, Tuple<double, double>>, GetEquityValueQueryHandler>()
                     .AddTransient<IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>, ListEquitiesQueryHandler>()

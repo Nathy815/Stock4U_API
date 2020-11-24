@@ -28,8 +28,8 @@ namespace S4U.API.Controllers
         }
 
         [HttpPost("chart")]
-        [Authorize]
-        public async Task<List<ListEquityChartsVM>> Chart([FromBody] GetEquityChartQuery request)
+        //[Authorize]
+        public async Task<List<List<GetEquityChartVM>>> Chart([FromBody] GetEquityChartQuery request)
         {
             return await _mediator.Send(request);
         }

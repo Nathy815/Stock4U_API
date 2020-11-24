@@ -6,12 +6,15 @@ namespace S4U.Domain.ViewModels
 {
     public class GetEquityChartVM
     {
-        public string Legend { get; set; }
-        public Dictionary<DateTime, double?> Points { get; set; }
+        public DateTime Legend { get; set; }
+        public double? Point { get; set; }
 
-        public GetEquityChartVM()
+        public GetEquityChartVM() { }
+
+        public GetEquityChartVM(DateTime legend, double? point)
         {
-            Points = new Dictionary<DateTime, double?>();
+            Legend = legend;
+            Point = point;
         }
     }
 }
