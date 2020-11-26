@@ -40,12 +40,21 @@ namespace S4U.Application.UserContext.Commands.Create
                     Id = _id,
                     Name = request.Name,
                     Email = request.Email,
-                    RoleID = _role
+                    RoleID = _role,
+                    PushToken = request.PushToken
                 }, cancellationToken);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return _id;
+            }
+            else
+            {
+                _user.PushToken = request.PushToken;
+
+                _context.Users.Update(_user);
+
+                await _context.SaveChangesAsync(cancellationToken);
             }
 
             return _user.Id;

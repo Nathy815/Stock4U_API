@@ -26,6 +26,16 @@ namespace S4U.Application.UserContext.Queries
                                       .Where(u => u.Email.Equals(request.Email))
                                       .FirstOrDefaultAsync();
 
+            if (!string.IsNullOrEmpty(request.PushToken) &&
+                !request.PushToken.Equals(_user.PushToken))
+            {
+                _user.PushToken = request.PushToken;
+
+                _context.Users.Update(_user);
+
+                await _context.SaveChangesAsync(cancellationToken);
+            }
+
             return _user.Id;
         }
     }

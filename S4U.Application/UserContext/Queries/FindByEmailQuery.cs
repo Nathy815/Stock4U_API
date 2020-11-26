@@ -8,5 +8,6 @@ namespace S4U.Application.UserContext.Queries
     public class FindByEmailQuery : IRequest<Guid>
     {
         public string Email { get; set; }
+        public string PushToken { get; set; }
     }
 }
