@@ -15,40 +15,36 @@ namespace S4U.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class NoteController : BaseController
     {
         public NoteController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("create"), DisableRequestSizeLimit]
-        [Authorize]
         public async Task<Guid> Create([FromForm] CreateNoteCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpDelete("delete/{id}")]
-        [Authorize]
         public async Task<bool> Delete([FromRoute] Guid id)
         {
             return await _mediator.Send(new DeleteNoteCommand(id));
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<GetNoteVM> Get([FromRoute] Guid id)
         {
             return await _mediator.Send(new GetNoteQuery(id));
         }
 
         [HttpPost("list")]
-        [Authorize]
         public async Task<List<GetNoteVM>> List([FromBody] ListNotesQuery request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpPatch("update"), DisableRequestSizeLimit]
-        [Authorize]
         public async Task<bool> Update([FromForm] UpdateNoteCommand request)
         {
             return await _mediator.Send(request);

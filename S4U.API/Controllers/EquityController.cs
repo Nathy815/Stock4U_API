@@ -16,61 +16,54 @@ namespace S4U.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EquityController : BaseController
     {
         public EquityController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("compare")]
-        [Authorize]
         public async Task<bool> Compare([FromBody] CompareEquityCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpPost("chart")]
-        //[Authorize]
         public async Task<List<List<GetEquityChartVM>>> Chart([FromBody] GetEquityChartQuery request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpPost("create")]
-        [Authorize]
         public async Task<Guid> Create([FromBody] CreateEquityCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpDelete("delete/{equityID}/{userID}")]
-        [Authorize]
         public async Task<bool> Delete([FromRoute] Guid equityID, Guid userID)
         {
             return await _mediator.Send(new DeleteUserEquityCommand(userID, equityID));
         }
 
         [HttpPost("get")]
-        [Authorize]
         public async Task<GetEquityVM> Get([FromBody] GetEquityQuery request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpGet("list/{userID}")]
-        [Authorize]
         public async Task<List<GetEquityVM>> List([FromRoute] Guid userID)
         {
             return await _mediator.Send(new ListEquitiesQuery(userID));
         }
 
         [HttpPatch("remove")]
-        [Authorize]
         public async Task<bool> Remove([FromBody] RemoveCompareCommand request)
         {
             return await _mediator.Send(request);
         }
 
         [HttpGet("search/{term}")]
-        [Authorize]
         public async Task<List<SearchEquityVM>> Search([FromRoute] string term)
         {
             return await _mediator.Send(new SearchEquityQuery(term));
