@@ -39,13 +39,13 @@ namespace S4U.Application.EquityContext.Queries
             var _list = new List<GetEquityVM>();
             foreach (var _equity in _user.UsersEquities)
             {
-                if (!_cache.TryGetValue(_equity.EquityID.ToString(), out GetEquityVM model))
-                {
+                /*if (!_cache.TryGetValue(_equity.EquityID.ToString(), out GetEquityVM model))
+                {*/
                     var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
                     _list.Add(new GetEquityVM(_equity.Equity, _yahoo));
-                }
+                /*}
                 else
-                    _list.Add(model);
+                    _list.Add(model);*/
             }
 
             return _list;
