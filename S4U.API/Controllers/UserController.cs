@@ -20,7 +20,6 @@ namespace S4U.API.Controllers
         public UserController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("create")]
-        [Authorize]
         public async Task<Guid> Create([FromBody] CreateUserCommand request)
         {
             return await _mediator.Send(request);
