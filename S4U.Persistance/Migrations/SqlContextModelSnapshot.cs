@@ -288,6 +288,35 @@ namespace S4U.Persistance.Migrations
                     b.ToTable("UserEquities");
                 });
 
+            modelBuilder.Entity("S4U.Domain.Entities.UserEquityPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<Guid>("EquityID");
+
+                    b.Property<DateTime>("ModifiedDate");
+
+                    b.Property<double>("Price");
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.Property<Guid>("UserID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID", "EquityID");
+
+                    b.HasIndex("Id", "UserID", "EquityID");
+
+                    b.ToTable("UserEquityPrices");
+                });
+
             modelBuilder.Entity("S4U.Domain.Entities.CompareEquity", b =>
                 {
                     b.HasOne("S4U.Domain.Entities.Equity", "Equity")
@@ -359,6 +388,14 @@ namespace S4U.Persistance.Migrations
                     b.HasOne("S4U.Domain.Entities.User", "User")
                         .WithMany("UsersEquities")
                         .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("S4U.Domain.Entities.UserEquityPrice", b =>
+                {
+                    b.HasOne("S4U.Domain.Entities.UserEquity", "UserEquity")
+                        .WithMany("Prices")
+                        .HasForeignKey("UserID", "EquityID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

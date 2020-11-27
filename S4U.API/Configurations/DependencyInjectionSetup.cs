@@ -12,8 +12,13 @@ using S4U.Application.NoteContext.Commands.Create;
 using S4U.Application.NoteContext.Commands.Delete;
 using S4U.Application.NoteContext.Commands.Update;
 using S4U.Application.NoteContext.Queries;
+using S4U.Application.PriceContext.Commands.Create;
+using S4U.Application.PriceContext.Commands.Delete;
+using S4U.Application.PriceContext.Commands.Update;
+using S4U.Application.PriceContext.Queries;
 using S4U.Application.Services.Interface;
 using S4U.Application.UserContext.Commands.Create;
+using S4U.Application.UserContext.Commands.Notify;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
 using S4U.Domain.ViewModels;
@@ -64,12 +69,26 @@ namespace S4U.API.Configurations
 
             #endregion
 
+            #region PriceContext
+
+            services.AddTransient<IRequestHandler<CreatePriceCommand, bool>, CreatePriceCommandHandler>()
+                    .AddTransient<IRequestHandler<DeletePriceCommand, bool>, DeletePriceCommandHandler>()
+                    .AddTransient<IRequestHandler<GetPriceQuery, GetPriceVM>, GetPriceQueryHandler>()
+                    .AddTransient<IRequestHandler<ListPricesQuery, List<GetPriceVM>>, ListPricesQueryHandler>()
+                    .AddTransient<IRequestHandler<UpdatePriceCommand, bool>, UpdatePriceCommandHandler>();
+
+            services.AddTransient<IValidator<CreatePriceCommand>, CreatePriceCommandValidator>()
+                    .AddTransient<IValidator<UpdatePriceCommand>, UpdatePriceCommandValidator>();
+
+            #endregion
+
             #region UserContext
 
             services.AddTransient<IRequestHandler<CreateUserCommand, Guid>, CreateUserCommandHandler>()
                     .AddTransient<IRequestHandler<FindByEmailQuery, Guid>, FindByEmailQueryHandler>()
                     .AddTransient<IRequestHandler<GetAddressQuery, GetAddressVM>, GetAddressQueryHandler>()
                     .AddTransient<IRequestHandler<GetUserQuery, GetUserVM>, GetUserQueryHandler>()
+                    .AddTransient<IRequestHandler<NotifyUserCommand, bool>, NotifyUserCommandHandler>()
                     .AddTransient<IRequestHandler<UpdateUserCommand, bool>, UpdateUserCommandHandler>();
 
             services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>()

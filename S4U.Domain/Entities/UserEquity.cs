@@ -18,5 +18,6 @@ namespace S4U.Domain.Entities
 
         public virtual ICollection<Note> Notes { get; set; }
         public virtual ICollection<CompareEquity> EquitiesToCompare { get; set; }
+        public virtual ICollection<UserEquityPrice> Prices { get; set; }
     }
 }

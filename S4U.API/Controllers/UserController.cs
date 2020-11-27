@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using S4U.Application.UserContext.Commands.Create;
+using S4U.Application.UserContext.Commands.Notify;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
 using S4U.Domain.ViewModels;
@@ -52,11 +53,10 @@ namespace S4U.API.Controllers
             return await _mediator.Send(request);
         }
 
-        [HttpGet("teste")]
-        [Authorize]
-        public Task<bool> Teste()
+        [HttpPost("notify")]
+        public async Task<bool> Notify([FromBody] NotifyUserCommand notify)
         {
-            return Task.FromResult(true);
+            return await _mediator.Send(notify);
         }
     }
 }

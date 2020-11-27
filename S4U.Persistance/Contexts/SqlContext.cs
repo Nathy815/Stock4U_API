@@ -24,6 +24,7 @@ namespace S4U.Persistance.Contexts
         public DbSet<Note> Notes { get; set; }
         public DbSet<CompareEquity> CompareEquities { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserEquityPrice> UserEquityPrices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,7 @@ namespace S4U.Persistance.Contexts
             modelBuilder.ApplyConfiguration(new UserEquityMap());
             modelBuilder.ApplyConfiguration(new NoteMap());
             modelBuilder.ApplyConfiguration(new NotificationMap());
+            modelBuilder.ApplyConfiguration(new UserEquityPriceMap());
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
