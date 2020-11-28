@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class ListEquitiesQueryHandler : IRequestHandler<ListEquitiesQuery, List<GetEquityVM>>
+    public class ListEquitiesQueryHandler : IRequestHandler<ListEquitiesQuery, List<GetEquityCompareVM>>
     {
         private readonly SqlContext _context;
         private readonly IMediator _mediator;
@@ -26,7 +26,7 @@ namespace S4U.Application.EquityContext.Queries
             _cache = cache;
         }
 
-        public async Task<List<GetEquityVM>> Handle(ListEquitiesQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetEquityCompareVM>> Handle(ListEquitiesQuery request, CancellationToken cancellationToken)
         {
             var _user = await _context.Set<User>()
                                       .Include(u => u.UsersEquities)
@@ -36,16 +36,11 @@ namespace S4U.Application.EquityContext.Queries
 
             if (_user.UsersEquities == null || _user.UsersEquities.Count == 0) return null;
 
-            var _list = new List<GetEquityVM>();
+            var _list = new List<GetEquityCompareVM>();
             foreach (var _equity in _user.UsersEquities)
             {
-                /*if (!_cache.TryGetValue(_equity.EquityID.ToString(), out GetEquityVM model))
-                {*/
-                    var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
-                    _list.Add(new GetEquityVM(_equity.Equity, _yahoo));
-                /*}
-                else
-                    _list.Add(model);*/
+                var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
+                _list.Add(new GetEquityCompareVM(_equity.Equity, _yahoo));
             }
 
             return _list;

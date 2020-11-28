@@ -38,27 +38,13 @@ namespace S4U.Application.EquityContext.Queries
                                             .FirstOrDefaultAsync();
 
             var _result = new GetEquityVM();
-            /*if (!_cache.TryGetValue<GetEquityVM>(_userEquity.EquityID.ToString(), out GetEquityVM principal))
-            {*/
-                var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
-                _result = new GetEquityVM(_userEquity, _yahoo);
-            /*}
-            else
-                _result = principal;*/
-                
+            var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
+            _result = new GetEquityVM(_userEquity.Equity, _yahoo);
 
             foreach (var _equity in _userEquity.EquitiesToCompare)
             {
-                /*if (!_cache.TryGetValue<GetEquityVM>(_equity.CompareID.ToString(), out GetEquityVM model))
-                {*/
-                    _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
-                    _result.Compare.Add(new GetEquityVM(_equity.Equity, _yahoo));
-                /*}
-                else
-                {
-                    if (_result.Compare == null) _result.Compare = new List<GetEquityVM>();
-                    _result.Compare.Add(model);
-                }*/
+                _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Equity.Ticker));
+                _result.Compare.Add(new GetEquityCompareVM(_equity.Equity, _yahoo));
             }
 
             return _result;

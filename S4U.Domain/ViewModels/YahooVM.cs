@@ -61,5 +61,8 @@ namespace S4U.Domain.ViewModels
     {
         public List<double?> close { get; set; }
         public List<double?> open { get; set; }
+        public List<double?> high { get; set; }
+        public List<double?> low { get; set; }
+        public List<double?> volume { get; set; }
     }
 }

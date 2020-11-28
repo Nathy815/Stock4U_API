@@ -11,42 +11,61 @@ namespace S4U.Domain.ViewModels
         public Guid Id { get; set; }
         public string Ticker { get; set; }
         public string Name { get; set; }
-        public double Value { get; set; }
-        public double Variation { get; set; }
-        public double Percentage { get; set; }
-        public bool? Higher { get; set; }
-        public int Notes { get; set; }
-        public List<GetEquityVM> Compare { get; set; }
+        public List<GetEquityItemVM> Items { get; set; }
+        public List<GetEquityCompareVM> Compare { get; set; }
 
         public GetEquityVM()
         {
-            Compare = new List<GetEquityVM>();
+            Items = new List<GetEquityItemVM>();
+            Compare = new List<GetEquityCompareVM>();
         }
 
-        public GetEquityVM(UserEquity userEquity, Tuple<double, double> yahoo)
-        {
-            Id = userEquity.Equity.Id;
-            Ticker = userEquity.Equity.Ticker;
-            Name = userEquity.Equity.Name;
-            Value = yahoo.Item1;
-            Higher = yahoo.Item1 > yahoo.Item2 ? true : false;
-            if (yahoo.Item1 == yahoo.Item2) Higher = null;
-            Variation = Math.Round(yahoo.Item1 - yahoo.Item2, 2);
-            Percentage = Math.Round(Variation * 100 / Value, 2);
-            Notes = userEquity.Notes == null ? 0 : userEquity.Notes.Where(n => !n.Deleted).ToList().Count();
-            Compare = new List<GetEquityVM>();
-        }
-
-        public GetEquityVM(Equity equity, Tuple<double, double> yahoo)
+        public GetEquityVM(Equity equity, List<GetEquityItemVM> yahoo)
         {
             Id = equity.Id;
             Ticker = equity.Ticker;
             Name = equity.Name;
-            Value = yahoo.Item1;
-            Higher = yahoo.Item1 > yahoo.Item2 ? true : false;
-            if (yahoo.Item1 == yahoo.Item2) Higher = null;
-            Variation = Math.Round(yahoo.Item1 - yahoo.Item2, 2);
-            Percentage = Math.Round(Variation * 100 / Value, 2);
+            Items = yahoo;
+        }
+    }
+
+    public class GetEquityItemVM
+    {
+        public string label { get; set; }
+        public double value { get; set; }
+        public double percentage { get; set; }
+        public bool? higher { get; set; }
+
+        public GetEquityItemVM(string nome, double? valorAnt, double? valor)
+        {
+            label = nome;
+            value = Math.Round(valor.HasValue ? valor.Value : 0, 2);
+            var _anterior = Math.Round(valorAnt.HasValue ? valorAnt.Value : 0, 2);
+            percentage = Math.Round((_anterior - value) * 100 / _anterior, 2);
+            higher = null;
+            if (value != _anterior)
+                higher = value > _anterior ? true : false;
+        }
+    }
+
+    public class GetEquityCompareVM
+    {
+        public Guid Id { get; set; }
+        public string Ticker { get; set; }
+        public string Name { get; set; }
+        public double value { get; set; }
+        public double percentage { get; set; }
+        public bool? higher { get; set; }
+
+        public GetEquityCompareVM(Equity equity, List<GetEquityItemVM> yahoo)
+        {
+            Id = equity.Id;
+            Ticker = equity.Ticker;
+            Name = equity.Name;
+            var _value = yahoo.ElementAt(3);
+            value = _value.value;
+            percentage = _value.percentage;
+            higher = _value.higher;
         }
     }
 }

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class GetEquityValueQueryHandler : IRequestHandler<GetEquityValueQuery, Tuple<double, double>>
+    public class GetEquityValueQueryHandler : IRequestHandler<GetEquityValueQuery, List<GetEquityItemVM>>
     {
-        public async Task<Tuple<double, double>> Handle(GetEquityValueQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetEquityItemVM>> Handle(GetEquityValueQuery request, CancellationToken cancellationToken)
         {
             var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&range=1d&interval=1d", request.Ticker);
 
@@ -21,11 +21,16 @@ namespace S4U.Application.EquityContext.Queries
             var _json = _response.Content.ReadAsStringAsync().Result;
 
             var _return = JsonConvert.DeserializeObject<YahooVM>(_json);
+            var _list = new List<GetEquityItemVM>();
 
-            var _valor = _return.chart.result[0].meta.regularMarketPrice;
-            var _fechamento = _return.chart.result[0].meta.chartPreviousClose;
+            var _values = _return.chart.result[0].indicators.quote[0];
+            _list.Add(new GetEquityItemVM("Abertura", _values.open[_values.open.Count - 1], _values.open[_values.open.Count - 2]));
+            _list.Add(new GetEquityItemVM("Mínimo", _values.open[_values.low.Count - 1], _values.open[_values.low.Count - 2]));
+            _list.Add(new GetEquityItemVM("Máximo", _values.open[_values.high.Count - 1], _values.open[_values.high.Count - 2]));
+            _list.Add(new GetEquityItemVM("Fechamento", _values.open[_values.close.Count - 1], _values.open[_values.close.Count - 2]));
+            _list.Add(new GetEquityItemVM("Volume", _values.open[_values.volume.Count - 1], _values.open[_values.volume.Count - 2]));
 
-            return new Tuple<double, double>(_valor, _fechamento);
+            return _list;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace S4U.API.Controllers
         }
 
         [HttpGet("list/{userID}")]
-        public async Task<List<GetEquityVM>> List([FromRoute] Guid userID)
+        public async Task<List<GetEquityCompareVM>> List([FromRoute] Guid userID)
         {
             return await _mediator.Send(new ListEquitiesQuery(userID));
         }

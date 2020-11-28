@@ -6,7 +6,7 @@ using System.Text;
 
 namespace S4U.Application.EquityContext.Queries
 {
-    public class ListEquitiesQuery : IRequest<List<GetEquityVM>>
+    public class ListEquitiesQuery : IRequest<List<GetEquityCompareVM>>
     {
         public Guid UserID { get; set; }
         
