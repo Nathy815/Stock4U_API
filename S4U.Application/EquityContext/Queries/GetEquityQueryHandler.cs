@@ -37,9 +37,8 @@ namespace S4U.Application.EquityContext.Queries
                                                         e.UserID == request.UserID)
                                             .FirstOrDefaultAsync();
 
-            var _result = new GetEquityVM();
             var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
-            _result = new GetEquityVM(_userEquity.Equity, _yahoo);
+            var _result = new GetEquityVM(_userEquity.Equity, _yahoo);
 
             foreach (var _equity in _userEquity.EquitiesToCompare)
             {

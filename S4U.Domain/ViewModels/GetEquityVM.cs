@@ -26,6 +26,7 @@ namespace S4U.Domain.ViewModels
             Ticker = equity.Ticker;
             Name = equity.Name;
             Items = yahoo;
+            Compare = new List<GetEquityCompareVM>();
         }
     }
 

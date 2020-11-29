@@ -8,5 +8,6 @@ namespace S4U.Application.Services.Interface
     public interface IHangfire
     {
         Task GetRealTimeData();
+        Task SendPushNotes();
     }
 }

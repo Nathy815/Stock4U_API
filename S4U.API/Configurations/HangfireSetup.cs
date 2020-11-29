@@ -44,6 +44,7 @@ namespace S4U.API.Configurations
             JobStorage.Current = new SqlServerStorage(_configuration.GetConnectionString("SqlConnection"), _options);
 
             RecurringJob.AddOrUpdate(() => hangfireJobs.GetRealTimeData(), Cron.Minutely);
+            RecurringJob.AddOrUpdate(() => hangfireJobs.SendPushNotes(), Cron.Minutely);
 
             #endregion
         }

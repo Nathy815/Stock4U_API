@@ -9,6 +9,7 @@ namespace S4U.Domain.Entities
     {
         public double Price { get; set; }
         public ePriceType Type { get; set; }
+        public bool Sent { get; set; }
 
         // Relational
         public Guid EquityID { get; set; }

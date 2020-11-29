@@ -16,7 +16,7 @@ namespace S4U.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class EquityController : BaseController
     {
         public EquityController(IMediator mediator) : base(mediator) { }
