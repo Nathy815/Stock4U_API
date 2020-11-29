@@ -10,6 +10,7 @@ namespace S4U.Domain.Entities
         public string Comments { get; set; }
         public string Attach { get; set; }
         public DateTime? Alert { get; set; }
+        public bool Sent { get; set; }
 
         //Relational
         public Guid EquityID { get; set; }

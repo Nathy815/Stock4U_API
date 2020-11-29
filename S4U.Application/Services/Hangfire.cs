@@ -60,13 +60,19 @@ namespace S4U.Application.Services
 
             foreach (var _user in _users)
             {
+                var _now = DateTime.Now;
+                var _initial = new DateTime(_now.Year, _now.Month, _now.Day, _now.Hour, _now.Minute, 0);
+                var _final = new DateTime(_now.Year, _now.Month, _now.Day, _now.Hour, _now.Minute, 59);
+
                 var _notes = await _context.Set<Note>()
                                            .Include(n => n.UserEquity)
                                                 .ThenInclude(n => n.Equity)
                                            .Where(n => !n.Deleted &&
+                                                       !n.Sent &&
                                                        n.UserID == _user.Id &&
                                                        n.Alert.HasValue &&
-                                                       DateTime.Now.Date.AddMinutes(n.Alert.Value.Minute) == n.Alert.Value)
+                                                       n.Alert.Value >= _initial &&
+                                                       n.Alert.Value <= _final)
                                            .ToListAsync();
 
                 if (_notes != null && _notes.Count > 0)
@@ -81,6 +87,13 @@ namespace S4U.Application.Services
                         RedirectType = _notes.Count == 1 ? eRedirectType.Note : eRedirectType.ListNotes,
                         UserID = _user.Id
                     });
+
+                    foreach (var _note in _notes)
+                        _note.Sent = true;
+
+                    _context.Notes.UpdateRange(_notes);
+
+                    await _context.SaveChangesAsync();
                 }
             }
         }
