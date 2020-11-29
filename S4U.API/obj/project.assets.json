@@ -4663,6 +4663,7 @@
           "FirebaseAdmin": "2.0.0",
           "FirebaseStorage.net": "1.0.3",
           "FluentValidation": "9.3.0",
+          "Hangfire.AspNetCore": "1.7.18",
           "MediatR": "9.0.0",
           "Microsoft.AspNetCore.SignalR.Core": "1.0.15",
           "Newtonsoft.Json": "12.0.3",

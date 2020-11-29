@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Hangfire;
+using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -42,7 +43,7 @@ namespace S4U.Application.Services
             foreach (var _equity in _equities)
             {
                 var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Ticker));
-
+                BackgroundJob.Enqueue(() => SendPushAlerts(_equity.Id, _equity.Ticker, _yahoo.ElementAt(3).value));
                 var _equityModel = new GetEquityVM(_equity, _yahoo);
                 _cache.Set<GetEquityVM>(_equity.Id.ToString(), _equityModel);
             }
@@ -82,6 +83,40 @@ namespace S4U.Application.Services
                     });
                 }
             }
+        }
+
+        private async Task SendPushAlerts(Guid equityID, string name, double value)
+        {
+            var _pushes = await _context.Set<UserEquityPrice>()
+                                        .Include(e => e.UserEquity)
+                                            .ThenInclude(e => e.User)
+                                        .Where(e => !e.Deleted &&
+                                                    e.EquityID == equityID &&
+                                                    !e.Sent &&
+                                                    (e.Type == ePriceType.MaiorOuIgual && value >= e.Price) ||
+                                                    (e.Type == ePriceType.MenorOuIgual && value <= e.Price))
+                                        .ToListAsync();
+
+            foreach (var _push in _pushes)
+            {
+                if (!string.IsNullOrEmpty(_push.UserEquity.User.PushToken))
+                {
+                    await _mediator.Send(new NotifyUserCommand()
+                    {
+                        Title = "Alerta de Preço",
+                        Body = string.Format("A ação {0} atingiu o valor {1} a {2}", name, _push.Type == ePriceType.MaiorOuIgual ? "maior ou igual" : "menor ou igual", value.ToString()),
+                        UserID = _push.UserID,
+                        RedirectID = equityID,
+                        RedirectType = eRedirectType.Equity
+                    });
+
+                    _push.Sent = true;
+
+                    _context.UserEquityPrices.Update(_push);
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         private async Task SendRealTime()

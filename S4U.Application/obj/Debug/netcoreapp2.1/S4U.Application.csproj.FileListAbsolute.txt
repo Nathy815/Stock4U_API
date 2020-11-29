@@ -12,5 +12,3 @@ C:\Users\nathy\source\repos\S4U\S4U.Application\bin\Debug\netcoreapp2.1\S4U.Doma
 C:\Users\nathy\source\repos\S4U\S4U.Application\obj\Debug\netcoreapp2.1\S4U.Application.csproj.CopyComplete
 C:\Users\nathy\source\repos\S4U\S4U.Application\obj\Debug\netcoreapp2.1\S4U.Application.dll
 C:\Users\nathy\source\repos\S4U\S4U.Application\obj\Debug\netcoreapp2.1\S4U.Application.pdb
-C:\Users\nathy\source\repos\S4U\S4U.Application\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.dll
-C:\Users\nathy\source\repos\S4U\S4U.Application\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.xml
