@@ -29,7 +29,7 @@ namespace S4U.Application.PriceContext.Commands.Create
                                             .FirstOrDefaultAsync();
 
             var _parameter = _userEquity.Prices.Where(e => e.Price == request.Price && e.Type == request.Type).FirstOrDefault();
-            if (_parameter != null)
+            if (_parameter == null)
             {
                 await _context.UserEquityPrices.AddAsync(new UserEquityPrice
                 {

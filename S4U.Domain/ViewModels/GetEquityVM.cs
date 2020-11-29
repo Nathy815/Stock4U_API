@@ -11,6 +11,8 @@ namespace S4U.Domain.ViewModels
         public Guid Id { get; set; }
         public string Ticker { get; set; }
         public string Name { get; set; }
+        public int Notes { get; set; }
+        public int Alerts { get; set; }
         public List<GetEquityItemVM> Items { get; set; }
         public List<GetEquityCompareVM> Compare { get; set; }
 
@@ -20,11 +22,13 @@ namespace S4U.Domain.ViewModels
             Compare = new List<GetEquityCompareVM>();
         }
 
-        public GetEquityVM(Equity equity, List<GetEquityItemVM> yahoo)
+        public GetEquityVM(UserEquity userEquity, List<GetEquityItemVM> yahoo)
         {
-            Id = equity.Id;
-            Ticker = equity.Ticker;
-            Name = equity.Name;
+            Id = userEquity.Equity.Id;
+            Ticker = userEquity.Equity.Ticker;
+            Name = userEquity.Equity.Name;
+            Notes = userEquity.Notes == null || userEquity.Notes.Count == 0 ? 0 : userEquity.Notes.Where(n => !n.Deleted).Count();
+            Alerts = userEquity.Prices == null || userEquity.Prices.Count == 0 ? 0 : userEquity.Prices.Where(p => !p.Deleted).Count();
             Items = yahoo;
             Compare = new List<GetEquityCompareVM>();
         }

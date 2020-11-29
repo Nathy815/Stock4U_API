@@ -27,6 +27,7 @@ namespace S4U.Application.PriceContext.Commands.Update
 
             _price.Price = request.Price;
             _price.Type = request.Type;
+            _price.Sent = false;
 
             _context.UserEquityPrices.Update(_price);
 

@@ -44,8 +44,8 @@ namespace S4U.Application.Services
             {
                 var _yahoo = await _mediator.Send(new GetEquityValueQuery(_equity.Ticker));
                 BackgroundJob.Enqueue(() => SendPushAlerts(_equity.Id, _equity.Ticker, _yahoo.ElementAt(3).value));
-                var _equityModel = new GetEquityVM(_equity, _yahoo);
-                _cache.Set<GetEquityVM>(_equity.Id.ToString(), _equityModel);
+                /*var _equityModel = new GetEquityVM(_equity, _yahoo);
+                _cache.Set<GetEquityVM>(_equity.Id.ToString(), _equityModel);*/
             }
             
             await SendRealTime();

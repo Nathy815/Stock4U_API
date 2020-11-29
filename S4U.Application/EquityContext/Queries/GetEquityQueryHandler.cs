@@ -31,6 +31,7 @@ namespace S4U.Application.EquityContext.Queries
             var _userEquity = await _context.Set<UserEquity>()
                                             .Include(e => e.Equity)
                                             .Include(e => e.Notes)
+                                            .Include(e => e.Prices)
                                             .Include(e => e.EquitiesToCompare)
                                                 .ThenInclude(e => e.Equity)
                                             .Where(e => e.EquityID == request.EquityID &&
@@ -38,7 +39,7 @@ namespace S4U.Application.EquityContext.Queries
                                             .FirstOrDefaultAsync();
 
             var _yahoo = await _mediator.Send(new GetEquityValueQuery(_userEquity.Equity.Ticker));
-            var _result = new GetEquityVM(_userEquity.Equity, _yahoo);
+            var _result = new GetEquityVM(_userEquity, _yahoo);
 
             foreach (var _equity in _userEquity.EquitiesToCompare)
             {

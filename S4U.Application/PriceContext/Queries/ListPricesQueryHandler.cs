@@ -25,7 +25,8 @@ namespace S4U.Application.PriceContext.Queries
         {
             return await _context.Set<UserEquityPrice>()
                                  .Where(e => e.UserID == request.UserID &&
-                                             e.EquityID == request.EquityID)
+                                             e.EquityID == request.EquityID &&
+                                             !e.Deleted)
                                  .Select(e => new GetPriceVM
                                  {
                                      Id = e.Id,
