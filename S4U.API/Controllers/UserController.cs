@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using S4U.Application.UserContext.Commands.Create;
+using S4U.Application.UserContext.Commands.Delete;
 using S4U.Application.UserContext.Commands.Notify;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
@@ -23,6 +24,12 @@ namespace S4U.API.Controllers
         public async Task<Guid> Create([FromBody] CreateUserCommand request)
         {
             return await _mediator.Send(request);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<bool> Delete([FromRoute] Guid id)
+        {
+            return await _mediator.Send(new DeleteUserCommand(id));
         }
 
         [HttpGet("{userID}")]

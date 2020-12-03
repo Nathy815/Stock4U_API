@@ -18,6 +18,7 @@ using S4U.Application.PriceContext.Commands.Update;
 using S4U.Application.PriceContext.Queries;
 using S4U.Application.Services.Interface;
 using S4U.Application.UserContext.Commands.Create;
+using S4U.Application.UserContext.Commands.Delete;
 using S4U.Application.UserContext.Commands.Notify;
 using S4U.Application.UserContext.Commands.Update;
 using S4U.Application.UserContext.Queries;
@@ -85,6 +86,7 @@ namespace S4U.API.Configurations
             #region UserContext
 
             services.AddTransient<IRequestHandler<CreateUserCommand, Guid>, CreateUserCommandHandler>()
+                    .AddTransient<IRequestHandler<DeleteUserCommand, bool>, DeleteUserCommandHandler>()
                     .AddTransient<IRequestHandler<FindByEmailQuery, Guid>, FindByEmailQueryHandler>()
                     .AddTransient<IRequestHandler<GetAddressQuery, GetAddressVM>, GetAddressQueryHandler>()
                     .AddTransient<IRequestHandler<GetUserQuery, GetUserVM>, GetUserQueryHandler>()
