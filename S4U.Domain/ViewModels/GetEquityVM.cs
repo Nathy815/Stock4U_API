@@ -46,7 +46,7 @@ namespace S4U.Domain.ViewModels
             label = nome;
             value = Math.Round(valor.HasValue ? valor.Value : 0, 2);
             var _anterior = Math.Round(valorAnt.HasValue ? valorAnt.Value : 0, 2);
-            percentage = Math.Round((_anterior - value) * 100 / _anterior, 2);
+            percentage = Math.Round((value - _anterior) * 100 / _anterior, 2);
             higher = null;
             if (value != _anterior)
                 higher = value > _anterior ? true : false;

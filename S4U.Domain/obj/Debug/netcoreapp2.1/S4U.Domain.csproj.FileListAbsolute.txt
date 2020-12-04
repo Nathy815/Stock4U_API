@@ -1,9 +1,9 @@
 C:\Users\nathy\source\repos\S4U\S4U.Domain\bin\Debug\netcoreapp2.1\S4U.Domain.deps.json
 C:\Users\nathy\source\repos\S4U\S4U.Domain\bin\Debug\netcoreapp2.1\S4U.Domain.dll
 C:\Users\nathy\source\repos\S4U\S4U.Domain\bin\Debug\netcoreapp2.1\S4U.Domain.pdb
+C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.csprojAssemblyReference.cache
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.csproj.CoreCompileInputs.cache
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.AssemblyInfoInputs.cache
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.AssemblyInfo.cs
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.dll
 C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.pdb
-C:\Users\nathy\source\repos\S4U\S4U.Domain\obj\Debug\netcoreapp2.1\S4U.Domain.csprojAssemblyReference.cache

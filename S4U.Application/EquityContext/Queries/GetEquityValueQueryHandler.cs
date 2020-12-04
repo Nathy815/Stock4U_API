@@ -14,7 +14,7 @@ namespace S4U.Application.EquityContext.Queries
     {
         public async Task<List<GetEquityItemVM>> Handle(GetEquityValueQuery request, CancellationToken cancellationToken)
         {
-            var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&range=1d&interval=1d", request.Ticker);
+            var api = string.Format("https://query1.finance.yahoo.com/v8/finance/chart/{0}?symbol={0}&range=5d&interval=1d", request.Ticker);
 
             var _client = new HttpClient();
             var _response = await _client.GetAsync(api);
@@ -24,11 +24,11 @@ namespace S4U.Application.EquityContext.Queries
             var _list = new List<GetEquityItemVM>();
 
             var _values = _return.chart.result[0].indicators.quote[0];
-            _list.Add(new GetEquityItemVM("Abertura", _values.open[_values.open.Count - 1], _values.open.Count > 2 ? _values.open[_values.open.Count - 3] : _values.open[_values.open.Count - 2]));
-            _list.Add(new GetEquityItemVM("Mínimo", _values.low[_values.low.Count - 1], _values.low.Count > 2 ? _values.low[_values.low.Count - 3] : _values.low[_values.low.Count - 2]));
-            _list.Add(new GetEquityItemVM("Máximo", _values.high[_values.high.Count - 1], _values.high.Count > 2 ? _values.high[_values.high.Count - 3] : _values.high[_values.high.Count - 2]));
-            _list.Add(new GetEquityItemVM("Fechamento", _values.close[_values.close.Count - 1], _values.close.Count > 2 ? _values.close[_values.close.Count - 3] : _values.close[_values.close.Count - 2]));
-            _list.Add(new GetEquityItemVM("Volume", _values.volume[_values.volume.Count - 1], _values.volume.Count > 2 ? _values.volume[_values.volume.Count - 3] : _values.volume[_values.volume.Count - 2]));
+            _list.Add(new GetEquityItemVM("Abertura", _values.open[_values.open.Count - 1], _values.open.Count > 1 ? _values.open[_values.open.Count - 2] : _values.open[_values.open.Count - 1]));
+            _list.Add(new GetEquityItemVM("Mínimo", _values.low[_values.low.Count - 1], _values.low.Count > 1 ? _values.low[_values.low.Count - 2] : _values.low[_values.low.Count - 1]));
+            _list.Add(new GetEquityItemVM("Máximo", _values.high[_values.high.Count - 1], _values.high.Count > 1 ? _values.high[_values.high.Count - 2] : _values.high[_values.high.Count - 1]));
+            _list.Add(new GetEquityItemVM("Fechamento", _values.close[_values.close.Count - 1], _values.close.Count > 1 ? _values.close[_values.close.Count - 2] : _values.close[_values.close.Count - 1]));
+            _list.Add(new GetEquityItemVM("Volume", _values.volume[_values.volume.Count - 1], _values.volume.Count > 1 ? _values.volume[_values.volume.Count - 2] : _values.volume[_values.volume.Count - 1]));
 
             return _list;
         }

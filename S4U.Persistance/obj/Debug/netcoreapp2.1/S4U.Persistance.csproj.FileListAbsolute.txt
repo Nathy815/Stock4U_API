@@ -1,12 +1,12 @@
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\bin\Debug\netcoreapp2.1\S4U.Persistance.deps.json
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\bin\Debug\netcoreapp2.1\S4U.Persistance.dll
-C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.csproj.CoreCompileInputs.cache
-C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.AssemblyInfoInputs.cache
-C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.AssemblyInfo.cs
-C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.csprojAssemblyReference.cache
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\bin\Debug\netcoreapp2.1\S4U.Persistance.pdb
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\bin\Debug\netcoreapp2.1\S4U.Domain.dll
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\bin\Debug\netcoreapp2.1\S4U.Domain.pdb
+C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.csprojAssemblyReference.cache
+C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.csproj.CoreCompileInputs.cache
+C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.AssemblyInfoInputs.cache
+C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.AssemblyInfo.cs
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.csproj.CopyComplete
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.dll
 C:\Users\nathy\source\repos\S4U\S4U.Persistance\obj\Debug\netcoreapp2.1\S4U.Persistance.pdb
