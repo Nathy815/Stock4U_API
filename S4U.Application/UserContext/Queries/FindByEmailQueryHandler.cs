@@ -23,7 +23,7 @@ namespace S4U.Application.UserContext.Queries
         public async Task<Guid> Handle(FindByEmailQuery request, CancellationToken cancellationToken)
         {
             var _user = await _context.Set<User>()
-                                      .Where(u => u.Email.Equals(request.Email))
+                                      .Where(u => !u.Deleted && u.Email.Equals(request.Email))
                                       .FirstOrDefaultAsync();
 
             if (!string.IsNullOrEmpty(request.PushToken) &&
